@@ -1,0 +1,49 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace RedisApp.API.Models
+{
+    public class AppDbContext:DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
+        {
+
+        }
+
+
+        public DbSet<Product> Products { get; set; }
+
+
+        // Her projeyi çalıştırdığımızda veri eklememek için...
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>().HasData(
+
+                new Product()
+                {
+                    Id = 1,
+                    Name = "Kalem",
+                    Price = 100
+                },
+
+                new Product()
+                {
+                    Id = 2,
+                    Name = "Silgi",
+                    Price = 90
+                },
+
+                new Product()
+                {
+                    Id = 3,
+                    Name = "SuluBoya",
+                    Price = 180
+                });
+
+
+
+
+
+            base.OnModelCreating(modelBuilder);
+        }
+    }
+}
